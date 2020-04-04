@@ -7,6 +7,7 @@ set(CMAKE_CXX_FLAGS, "${CXX_FLAGS}")
 
 project(camera_fusion)
 
+set(OpenCV_DIR /home/kyle/.local/opt/OpenCV-4.2.0/lib/cmake/opencv4)
 find_package(OpenCV 4.1 REQUIRED)
 
 include_directories(${OpenCV_INCLUDE_DIRS})
@@ -15,4 +16,5 @@ add_definitions(${OpenCV_DEFINITIONS})
 
 # Executable for create matrix exercise
 add_executable (2D_feature_tracking src/matching2D_Student.cpp src/MidTermProject_Camera_Student.cpp)
+target_compile_definitions(2D_feature_tracking PRIVATE DATA_ROOT="${CMAKE_CURRENT_SOURCE_DIR}/")
 target_link_libraries (2D_feature_tracking ${OpenCV_LIBRARIES})
