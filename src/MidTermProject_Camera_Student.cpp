@@ -37,9 +37,9 @@ int main(int argc, const char *argv[])
     int imgFillWidth = 4;  // no. of digits which make up the file index (e.g. img-0001.png)
 
     // misc
-    int dataBufferSize = 2;       // no. of images which are held in memory (ring buffer) at the same time
+    int dataBufferSize = 2;           // no. of images which are held in memory (ring buffer) at the same time
     std::deque<DataFrame> dataBuffer; // list of data frames which are held in memory at the same time
-    bool bVis = true;            // visualize results
+    bool bVis = true;                 // visualize results
 
     /* MAIN LOOP OVER ALL IMAGES */
 
@@ -64,7 +64,8 @@ int main(int argc, const char *argv[])
         DataFrame frame;
         frame.cameraImg = imgGray;
         dataBuffer.push_back(frame);
-        while (dataBuffer.size() > dataBufferSize) {
+        while (dataBuffer.size() > dataBufferSize)
+        {
             dataBuffer.pop_front();
         }
 
@@ -95,18 +96,27 @@ int main(int argc, const char *argv[])
         }
         //// EOF STUDENT ASSIGNMENT
 
-        // STUDENT ASSIGNMENT
-        // TASK MP.3 -> only keep keypoints on the preceding vehicle
+        //// STUDENT ASSIGNMENT
+        //// TASK MP.3 -> only keep keypoints on the preceding vehicle
 
         // only keep keypoints on the preceding vehicle
         bool bFocusOnVehicle = true;
         cv::Rect vehicleRect(535, 180, 180, 150);
         if (bFocusOnVehicle)
         {
-            // ...
+            std::vector<cv::KeyPoint> filteredKeypoints;
+            for (const auto &key : keypoints)
+            {
+                if (key.pt.x > vehicleRect.x && key.pt.x < vehicleRect.x + vehicleRect.width &&
+                    key.pt.y > vehicleRect.y && key.pt.y < vehicleRect.y + vehicleRect.height)
+                {
+                    filteredKeypoints.push_back(key);
+                }
+            }
+            std::swap(keypoints, filteredKeypoints);
         }
 
-        //! EOF STUDENT ASSIGNMENT
+        //// EOF STUDENT ASSIGNMENT
 
         // optional : limit number of keypoints (helpful for debugging and learning)
         bool bLimitKpts = true;
