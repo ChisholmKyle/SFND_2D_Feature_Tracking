@@ -76,7 +76,7 @@ int main(int argc, const char *argv[])
 
         // extract 2D keypoints from current image
         vector<cv::KeyPoint> keypoints; // create empty feature list for current image
-        string detectorType = "SIFT";
+        string detectorType = "BRISK";
 
         //// STUDENT ASSIGNMENT
         //// TASK MP.2 -> add the following keypoint detectors in file matching2D.cpp and enable string-based selection based on detectorType
@@ -138,14 +138,33 @@ int main(int argc, const char *argv[])
 
         /* EXTRACT KEYPOINT DESCRIPTORS */
 
-        //! STUDENT ASSIGNMENT
-        //! TASK MP.4 -> add the following descriptors in file matching2D.cpp and enable string-based selection based on descriptorType
-        //! -> BRIEF, ORB, FREAK, AKAZE, SIFT
+        //// STUDENT ASSIGNMENT
+        //// TASK MP.4 -> add the following descriptors in file matching2D.cpp and enable string-based selection based on descriptorType
+        //// -> BRIEF, ORB, FREAK, AKAZE, SIFT
+        //// -> SHITOMASI, HARRIS, FAST, BRISK, ORB, AKAZE, SIFT
 
         cv::Mat descriptors;
-        string descriptorType = "BRISK"; // BRIEF, ORB, FREAK, AKAZE, SIFT
+        string descriptorType = "BRISK"; // BRISK, BRIEF, ORB, FREAK, AKAZE, SIFT
+
+        // enforce same descriptor/detector for certain types
+        if (detectorType.compare("ORB") == 0) {
+            descriptorType = detectorType;
+        } else if (detectorType.compare("SIFT") == 0) {
+            descriptorType = detectorType;
+        } else if (detectorType.compare("AKAZE") == 0) {
+            descriptorType = detectorType;
+        } else if (detectorType.compare("BRISK") == 0) {
+            descriptorType = detectorType;
+        } else if (descriptorType.compare("ORB") == 0 ||
+                   descriptorType.compare("SIFT") == 0 ||
+                   descriptorType.compare("AKAZE") == 0 ||
+                   descriptorType.compare("BRISK") == 0) {
+            printf ("ERROR: descriptorType ORB, SIFT, AKAZE, BRISK must have same detectorType\n");
+            exit (EXIT_FAILURE);
+        }
+
         descKeypoints((dataBuffer.end() - 1)->keypoints, (dataBuffer.end() - 1)->cameraImg, descriptors, descriptorType);
-        //! EOF STUDENT ASSIGNMENT
+        //// EOF STUDENT ASSIGNMENT
 
         // push descriptors for current frame to end of data buffer
         (dataBuffer.end() - 1)->descriptors = descriptors;
