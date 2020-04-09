@@ -223,10 +223,11 @@ static void GenerateTest(const MatchingTestParameters &parameters, const int tes
         {
             descKeypoints((dataBuffer.end() - 1)->keypoints, (dataBuffer.end() - 1)->cameraImg, descriptors, descriptorType, result.descriptorDurationMs);
         }
-        catch( cv::Exception& e )
+        catch (cv::Exception &e)
         {
-            const char* err_msg = e.what();
-            cout << std::endl << "{ERROR} DETECTOR: " << detectorType << ", DESCRIPTOR: " << descriptorType << std::endl;
+            const char *err_msg = e.what();
+            cout << std::endl
+                 << "{ERROR} DETECTOR: " << detectorType << ", DESCRIPTOR: " << descriptorType << std::endl;
             std::cout << "exception caught: " << err_msg << std::endl;
             return;
         }
