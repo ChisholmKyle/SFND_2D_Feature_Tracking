@@ -2,8 +2,6 @@
 import os
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.colors import BoundaryNorm
-from matplotlib.ticker import MaxNLocator
 
 # %%
 
@@ -11,20 +9,20 @@ from matplotlib.ticker import MaxNLocator
 data_file = 'analysis/data/output_2020-04-07_09h04m54s.csv'
 
 # show plots
-display_plots = True
+display_plots = False
 
 # output plot size
 plot_size = {
     'width': 7.5,
     'height': 5,
-    'dpi': 200
+    'dpi': 96
 }
 
 # table output size
 table_size = {
-    'width': 5,
+    'width': 6,
     'height': 9,
-    'dpi': 200
+    'dpi': 96
 }
 
 # %%
@@ -258,7 +256,7 @@ ax.set_title(plot_title)
 # %%
 # timing plot - descriptor vs detector histogram
 # plot labels
-plot_title = "Detector vs. Descriptor Durations"
+plot_title = "Total Duration (ms)"
 plot_x_label = "Detector"
 plot_y_label = "Descriptor"
 
